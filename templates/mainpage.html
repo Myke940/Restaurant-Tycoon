@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<style>
+
+.image-container {
+    display: flex;
+    position: fixed;
+    left: 2%;
+    bottom: 65%;
+}
+
+.title{
+    left: 2%;
+    position: fixed;
+    font-style: unset;
+
+
+}
+
+</style>
+
+<div class = 'title'>
+<h1><i>HOMEPAGE</i></h1>
+</div>
+
+<div class = 'image-container'>
+<img src = "{{ slogan }}" width = '200'>
+</div>
+
+
+
+
+
+
+{% endblock %}

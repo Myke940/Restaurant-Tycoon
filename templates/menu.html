@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+
+.picture1{
+    position: fixed;
+    width: 100;
+    ;
+}
+
+</style>
+
+
+{% for dish in dishes %}
+<div class = 'container-fluid containerfor'>
+<!--<div class = 'picture1'><img src = '{{dish.image.url}}'></div>-->
+<div>
+    
+    
+    <ul>
+        
+        <li>{{dish.ingredients}}</li>
+        <li>{{dish.name}}</li>
+        <li>{{dish.price}}</li>
+    </ul>
+    <div class="btn-group">
+  <button class="btn btn-info btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    description
+  </button>
+  <ul class="dropdown-menu">
+    <li>{{dish.description}}</li>
+    <li>
+    <a href = '#'>add your comment</a>
+    </li>
+  </ul>
+</div>
+</div>
+</div>
+{% endfor %}
+
+{% endblock %} 

@@ -1,0 +1,32 @@
+Category
+-Asia
+    -Sushi
+    -Fish
+-Italian
+    -pizza
+    -pasta
+
+
+
+
+
+
+html: if user.is_staff --> checkout superuser
+
+
+
+
+
+PROBLEMO.:
+
+Ingredients name by dish
+ingredients in dish
+improoved dish 
+<div by menudishes>
+
+
+
+
+
+
+
