@@ -19,8 +19,6 @@
     
     
     <ul>
-        
-        <li>{{dish.ingredients}}</li>
         <li>{{dish.name}}</li>
         <li>{{dish.price}}</li>
     </ul>
@@ -31,12 +29,24 @@
   <ul class="dropdown-menu">
     <li>{{dish.description}}</li>
     <li>
+      <a href = '{% url "ingredients" dish.pk %}'>show Ingredients</a>
+    </li>
+    <li>
     <a href = '#'>add your comment</a>
     </li>
   </ul>
+  <form POST>
+  <button type = submit>
+    add
+  </button>
+</form>
 </div>
 </div>
 </div>
+
+
 {% endfor %}
+
+
 
 {% endblock %} 

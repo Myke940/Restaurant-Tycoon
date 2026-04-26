@@ -10,6 +10,8 @@ class Ingredient(models.Model):
     price = models.FloatField(default=0.0)
     description = models.TextField(blank=True)
     image = models.ImageField(upload_to='ingredient_images/', blank=True)
+    def __str__(self):
+        return self.name
 
 
 class Dish(models.Model):
@@ -31,12 +33,13 @@ class ImproveappendedDish(models.Model):
     def ingredient_list(self):
         for ingredient in Dish.ingredients:
             value = models.IntegerField(choices=[(1, "Upvote"), (0, "Downvote")])
-            if value == 0:
-                pass
+            
+        
                  
+class CreateOrder(models.Model):
+    pass
 
-
-    
+# for workers
 class Order(models.Model):
     items = models.ManyToManyField(Dish)
     total_price = models.FloatField()
@@ -44,6 +47,8 @@ class Order(models.Model):
     status = models.CharField(max_length = 20, default = 'Pending')
     created_by = models.CharField(max_length = 20, default = 'Guest')
     
+
+# for workers
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='OrderItems')
@@ -60,5 +65,10 @@ class OrderItem(models.Model):
         related_name='removed_in_order_items'
     )
 
+class Deliver(models.Model):
+    location = models.TextField()
+    def get(self, reuqest, total_price):
+        extrasdeliver = total_price + 10
+        
 
 

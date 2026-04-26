@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+
+<!--<div>
+    {{dish.image}}
+</div>-->
+
+<div>
+<h2>{{dish.name}}</h2>
+
+<h3>Ingredients</h3>
+{% for i in dish.ingredients.all %}
+<ul>
+    <li>{{ i.name }}</li>
+</ul>
+{% endfor %}
+</div>
+
+{% endblock %}

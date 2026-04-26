@@ -39,15 +39,32 @@ class OrderView(View):
         # Logic to create an order based on the posted data
         pass
 
+
+
 class IngredientView(View):
-    template_name = 'Dish_ingredients.html'
+    template_name = 'ingredients.html'
+    reverse_lazy = 'ingredients'
     model = Ingredient
-    def get(self, request, dish_id):
-        dish = Dish.objects.get(id=dish_id)
-        ingredients = dish.ingredients.all()
-        return render(request, self.template_name, {'ingredients': ingredients})
+    def get(self, request, pk):
+        dish = Dish.objects.get(id = pk)
+        #ingredients = dish.ingredients.all()
+        return render(request, self.template_name, {'dish': dish })
 
 
+
+class Order(View):
+    model = Order
+    def get(self ,request, pk):
+        pass
+
+
+class Delivery(View):
+    model = Deliver
+    template_name = 'Ordermenu.html'
+    reverse_lazy = 'ordermenu'
+    def get(request, self, orderview_price):
+        costs = orderview_price + 10
+        return render(request, self.template.name, costs)
 
 
 
