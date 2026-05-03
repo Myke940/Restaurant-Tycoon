@@ -19,11 +19,13 @@ html: if user.is_staff --> checkout superuser
 
 PROBLEMO.:
 
-Ingredients name by dish
-ingredients in dish
-improoved dish 
-<div by menudishes>
 
+order for staff and not staff
+
+
+-thought about dish system like appending or getting new attr
+-improving dishes during ordering
+-delivering and account
 
 
 

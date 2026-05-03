@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+
+{% block content %}
+
+
+<div>
+    <ul>
+        {% for dish in dishes %}
+        <li>{{dish.name}}</li>
+        <li>{{dish.price}}</li>
+    </ul>
+    <form method="post">
+        <button type = 'submit'>add</button>
+    </form>
+</div>
+
+
+
+
+
+{% endblock %}

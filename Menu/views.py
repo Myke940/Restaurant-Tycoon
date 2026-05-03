@@ -32,11 +32,13 @@ class DishDetailView(View):
         dish = Dish.objects.get(id=dish_id)
         return render(request, self.template_name, {'dish': dish})
 
+
 class OrderView(View):
-    template_name = 'order.html'
     model = Order
-    def post(self, request):
-        # Logic to create an order based on the posted data
+    pass
+
+class OrderForWorker(View):
+    def get(self):
         pass
 
 
@@ -50,12 +52,6 @@ class IngredientView(View):
         #ingredients = dish.ingredients.all()
         return render(request, self.template_name, {'dish': dish })
 
-
-
-class Order(View):
-    model = Order
-    def get(self ,request, pk):
-        pass
 
 
 class Delivery(View):

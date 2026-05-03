@@ -21,7 +21,6 @@ class Dish(models.Model):
     ingredients = models.ManyToManyField(Ingredient, blank=True)
     image = models.ImageField(upload_to = 'menu_images/')
     def ingredient_list(self):
-        value = models.IntegerField(choices=[(1, "Upvote"), (0, "Downvote")])
         return ", ".join([ingredient.name for ingredient in self.ingredients.all()])
        
 
@@ -30,24 +29,23 @@ class ImproveappendedDish(models.Model):
     price = models.FloatField()
     description = models.TextField()
     image = models.ImageField(upload_to = 'menu_images/')
-    def ingredient_list(self):
+    '''def post(self):
         for ingredient in Dish.ingredients:
-            value = models.IntegerField(choices=[(1, "Upvote"), (0, "Downvote")])
+            if Ingredient.name is ingredient:
+                value = 
+            value = models.IntegerField(choices=[(1, "Upvote"), (0, "Downvote")])'''
             
-        
-                 
-class CreateOrder(models.Model):
-    pass
 
-# for workers
 class Order(models.Model):
-    items = models.ManyToManyField(Dish)
-    total_price = models.FloatField()
-    created_at = models.DateTimeField(auto_now_add = True)
-    status = models.CharField(max_length = 20, default = 'Pending')
-    created_by = models.CharField(max_length = 20, default = 'Guest')
+    items = models.ManyToManyField(Dish, related_name="orders")
+    total_price = models.DecimalField(max_digits=8, decimal_places=2)
+    created_at = models.DateTimeField(auto_now_add=True)
+    cb = models.CharField(max_length=20, default='Guest')
     
+            
 
+                 
+        
 # for workers
 
 class OrderItem(models.Model):
