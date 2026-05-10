@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import *
 from django.conf import settings
 from django.urls import reverse_lazy
@@ -33,9 +33,17 @@ class DishDetailView(View):
         return render(request, self.template_name, {'dish': dish})
 
 
-class OrderView(View):
-    model = Order
-    pass
+class OrderHere(View):
+    def get(self, request, dish_pk):
+        dish = Dish.objects.get(id = dish_pk)
+        order, c = Order.objects.get_or_create(user = request.user)
+        order.items.add(dish)
+        order.total_price = sum(item.price for item in order.items.all())
+        order.save()
+        return redirect('dishmenu')
+
+
+
 
 class OrderForWorker(View):
     def get(self):

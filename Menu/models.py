@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.contrib.auth.models import User
 # Create your models here.
 
 class Mainpage(models.Model):
@@ -37,10 +37,11 @@ class ImproveappendedDish(models.Model):
             
 
 class Order(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null = True, related_name = 'UserOrders')
     items = models.ManyToManyField(Dish, related_name="orders")
-    total_price = models.DecimalField(max_digits=8, decimal_places=2)
+    total_price = models.DecimalField(max_digits=8, decimal_places=2, null = True)
     created_at = models.DateTimeField(auto_now_add=True)
-    cb = models.CharField(max_length=20, default='Guest')
+    orderis = models.BooleanField(default = True) #if order is active or not (TRUE False)
     
             
 
