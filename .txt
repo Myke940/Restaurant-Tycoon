@@ -20,13 +20,15 @@ html: if user.is_staff --> checkout superuser
 PROBLEMO.:
 
 
-order for staff and not staff
 
 
--thought about dish system like appending or getting new attr
+
+
 -improving dishes during ordering
 -delivering and account
 
+-HTTPRsponse for if users password didnt match
+maybe with post?
 
 
 

@@ -38,7 +38,6 @@ class ImproveappendedDish(models.Model):
 
 class Order(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null = True, related_name = 'UserOrders')
-    items = models.ManyToManyField(Dish, related_name="orders")
     total_price = models.DecimalField(max_digits=8, decimal_places=2, null = True)
     created_at = models.DateTimeField(auto_now_add=True)
     orderis = models.BooleanField(default = True) #if order is active or not (TRUE False)
@@ -63,6 +62,7 @@ class OrderItem(models.Model):
         blank=True,
         related_name='removed_in_order_items'
     )
+
 
 class Deliver(models.Model):
     location = models.TextField()

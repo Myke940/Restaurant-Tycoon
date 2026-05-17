@@ -32,7 +32,7 @@ class DishDetailView(View):
         dish = Dish.objects.get(id=dish_id)
         return render(request, self.template_name, {'dish': dish})
 
-
+'''
 class OrderHere(View):
     def get(self, request, dish_pk):
         dish = Dish.objects.get(id = dish_pk)
@@ -41,6 +41,22 @@ class OrderHere(View):
         order.total_price = sum(item.price for item in order.items.all())
         order.save()
         return redirect('dishmenu')
+'''
+
+class AddToOrder(View):
+    def get(self, request, dish_id):
+        dish  = Dish.objects.get( id = dish_id)
+        order, c = Order.objects.get_or_create(user = request.user)
+        orderitem, c = OrderItem.objects.get_or_create(order = order, dish = dish)
+        if not c:
+            orderitem.quantity += 1
+            orderitem.save()
+        order.total_price = sum(item.dish.price * item.quantity for item in order.OrderItems.all())
+        order.save()
+        return redirect('dishmenu')
+
+
+
 
 
 
