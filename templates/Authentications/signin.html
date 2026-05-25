@@ -6,15 +6,33 @@
     <title>Document</title>
 </head>
 <body>
-    <div>
-        <form method="GET">
-        <input required name = 'user'>Username
-        <input required name = 'password1'>Password
-        <input required name = 'password2'>Password
+    <form method="POST">
+    {% csrf_token %}
+        
+        <div>
+    <p>username</p>
+    <input type="text" name="username" required>
+        </div>
+        <div>
+    <p>password</p>
+<input type="password" name="password1" required>
+        </div>
+        <div>
+    <p>repeat Password</p>
+    <input type="password" name="password2" required>
+        </div>
+            <div>
+    <p>address (optional)</p>
+    <input type="text" name="adress">
+            </div>
+            <div>
+    <p>phone number (optional)</p>
+    <input type="text" name="pn">
+            </div>
+        
+    <button type="submit">Sign In</button>
+</form>
 
-        </form>
-    </div>
-    
-    
+
 </body>
 </html>

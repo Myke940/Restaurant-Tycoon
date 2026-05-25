@@ -42,9 +42,8 @@ class Order(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     orderis = models.BooleanField(default = True) #if order is active or not (TRUE False)
     
-            
 
-                 
+
         
 # for workers
 

@@ -16,7 +16,7 @@ html: if user.is_staff --> checkout superuser
 
 
 
-
+http://127.0.0.1:8000/auth/authentication/Sign_in
 PROBLEMO.:
 
 
