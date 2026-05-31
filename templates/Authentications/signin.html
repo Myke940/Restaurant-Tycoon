@@ -1,38 +1,172 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign up</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+    :root {
+      --cream: #f5f0e8;
+      --dark: #1a1a1a;
+      --accent: #c8a96e;
+      --muted: #6b6560;
+    }
+
+    body {
+      background: var(--cream);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      padding: 2rem 1rem;
+    }
+
+    .auth-card {
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 440px;
+    }
+
+    .auth-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--dark);
+      margin-bottom: 0.3rem;
+    }
+
+    .auth-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .optional-badge {
+      font-size: 0.65rem;
+      color: #bbb;
+      margin-left: 0.4rem;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .form-control {
+      border: 1px solid #e0dbd2;
+      border-radius: 2px;
+      background: var(--cream);
+      font-size: 0.9rem;
+      padding: 0.65rem 0.9rem;
+      color: var(--dark);
+    }
+
+    .form-control:focus {
+      border-color: var(--accent);
+      box-shadow: none;
+      background: #fff;
+    }
+
+    .section-sep {
+      border: none;
+      border-top: 1px solid #ede8df;
+      margin: 1.5rem 0;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #ccc;
+      margin-bottom: 1rem;
+    }
+
+    .btn-auth {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 2px;
+      padding: 0.75rem;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 1.5rem;
+      transition: background 0.2s;
+    }
+
+    .btn-auth:hover { background: #b8945a; color: #fff; }
+
+    .auth-footer {
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 0.83rem;
+      color: var(--muted);
+    }
+
+    .auth-footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .auth-footer a:hover { text-decoration: underline; }
+  </style>
 </head>
 <body>
+  <div class="auth-card">
+    <div class="auth-title">Create account</div>
+    <div class="auth-sub">Join us and start ordering</div>
+    <div class="divider"></div>
     <form method="POST">
-    {% csrf_token %}
-        
-        <div>
-    <p>username</p>
-    <input type="text" name="username" required>
-        </div>
-        <div>
-    <p>password</p>
-<input type="password" name="password1" required>
-        </div>
-        <div>
-    <p>repeat Password</p>
-    <input type="password" name="password2" required>
-        </div>
-            <div>
-    <p>address (optional)</p>
-    <input type="text" name="adress">
-            </div>
-            <div>
-    <p>phone number (optional)</p>
-    <input type="text" name="pn">
-            </div>
-        
-    <button type="submit">Sign In</button>
-</form>
+      {% csrf_token %}
+      <div class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" name="username" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" name="password1" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Repeat password</label>
+        <input type="password" name="password2" class="form-control" required>
+      </div>
 
+      <hr class="section-sep">
+      <div class="section-label">Optional details</div>
 
+      <div class="mb-3">
+        <label class="form-label">Address <span class="optional-badge">optional</span></label>
+        <input type="text" name="adress" class="form-control">
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Phone number <span class="optional-badge">optional</span></label>
+        <input type="text" name="pn" class="form-control">
+      </div>
+
+      <button type="submit" class="btn btn-auth">Create account</button>
+    </form>
+    <div class="auth-footer">
+      Already have an account? <a href="{% url 'login' %}">Log in</a>
+    </div>
+  </div>
 </body>
 </html>

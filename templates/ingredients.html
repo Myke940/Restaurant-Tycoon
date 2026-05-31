@@ -1,22 +1,203 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap');
 
+  :root {
+    --cream: #f5f0e8;
+    --dark: #1a1a1a;
+    --accent: #c8a96e;
+    --muted: #6b6560;
+  }
 
+  body { background: var(--cream); }
 
-<!--<div>
-    {{dish.image}}
-</div>-->
+  .ing-page {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
+    font-family: 'DM Sans', sans-serif;
+  }
 
-<div>
-<h2>{{dish.name}}</h2>
+  .back-link {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 2rem;
+    transition: color 0.2s;
+  }
 
-<h3>Ingredients</h3>
-{% for i in dish.ingredients.all %}
-<ul>
-    <li>{{ i.name }}</li>
-</ul>
-{% endfor %}
+  .back-link:hover { color: var(--accent); }
+
+  .dish-hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+    margin-bottom: 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .dish-hero { grid-template-columns: 1fr; }
+  }
+
+  .dish-hero-img {
+    border-radius: 4px;
+    overflow: hidden;
+    height: 280px;
+    background: #e8e2d8;
+  }
+
+  .dish-hero-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .no-image {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .dish-hero-info h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.2rem;
+    color: var(--dark);
+    margin-bottom: 0.5rem;
+  }
+
+  .dish-hero-info p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .divider {
+    width: 50px;
+    height: 2px;
+    background: var(--accent);
+    margin: 1rem 0 1.5rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--dark);
+    margin-bottom: 1.5rem;
+  }
+
+  .ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .ing-card {
+    background: #fff;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .ing-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+  }
+
+  .ing-img {
+    height: 110px;
+    background: #f0ece4;
+    overflow: hidden;
+  }
+
+  .ing-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ing-no-img {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    color: #ccc;
+  }
+
+  .ing-info {
+    padding: 0.7rem 0.9rem;
+  }
+
+  .ing-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dark);
+  }
+
+  .ing-price {
+    font-size: 0.78rem;
+    color: var(--accent);
+    margin-top: 0.15rem;
+  }
+</style>
+
+<div class="ing-page">
+
+  <a href="{% url 'dishmenu' %}" class="back-link">← Back to menu</a>
+
+  <div class="dish-hero">
+    <div class="dish-hero-img">
+      {% if dish.image %}
+        <img src="{{ dish.image.url }}" alt="{{ dish.name }}">
+      {% else %}
+        <div class="no-image">no image</div>
+      {% endif %}
+    </div>
+    <div class="dish-hero-info">
+      <h1>{{ dish.name }}</h1>
+      <div class="divider"></div>
+      <p>{{ dish.description }}</p>
+    </div>
+  </div>
+
+  <div class="section-title">Ingredients</div>
+
+  <div class="ingredients-grid">
+    {% for i in dish.ingredients.all %}
+    <div class="ing-card">
+      <div class="ing-img">
+        {% if i.image %}
+          <img src="{{ i.image.url }}" alt="{{ i.name }}">
+        {% else %}
+          <div class="ing-no-img">&#9675;</div>
+        {% endif %}
+      </div>
+      <div class="ing-info">
+        <div class="ing-name">{{ i.name }}</div>
+        {% if i.price %}
+          <div class="ing-price">{{ i.description }}</div>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
 </div>
 
 {% endblock %}

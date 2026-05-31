@@ -1,23 +1,80 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<!--
-- location
--extras -> prices
+<div class="container mt-4">
+  <h2>Your Order</h2>
 
+  {% if not order or not order.OrderItems.all %}
+    <p>Your cart is empty.</p>
+  {% else %}
 
+    {% for entry in items_data %}
+      {% with item=entry.item %}
+      <div class="card mb-3">
+        <div class="card-body">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">{{ item.dish.name }} x{{ item.quantity }}</h5>
+            <div>
+              <span class="me-3">{{ item.dish.price }} / unit</span>
+              <form method="post" class="d-inline">
+                {% csrf_token %}
+                <input type="hidden" name="action" value="remove_item">
+                <input type="hidden" name="item_id" value="{{ item.id }}">
+                <button class="btn btn-danger btn-sm">Remove</button>
+              </form>
+            </div>
+          </div>
 
+          <div class="mt-2">
+            <button class="btn btn-sm btn-outline-secondary" type="button"
+              data-bs-toggle="collapse" data-bs-target="#ing-{{ item.id }}">
+              Ingredients
+            </button>
+            <div class="collapse mt-2" id="ing-{{ item.id }}">
+              <ul class="list-group">
+                {% for ing in entry.ingredients %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>{{ ing.obj.name }} <small class="text-muted">({{ ing.price }} / unit)</small></span>
+                  <div class="d-flex align-items-center gap-2">
+                    <form method="post" class="d-inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="adjust_ingredient">
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <input type="hidden" name="ingredient_id" value="{{ ing.obj.id }}">
+                      <input type="hidden" name="direction" value="minus">
+                      <button class="btn btn-sm btn-outline-danger" {% if ing.qty <= -1 %}disabled{% endif %}>-</button>
+                    </form>
+                    <span>{{ ing.qty|add:1 }}</span>
+                    <form method="post" class="d-inline">
+                      {% csrf_token %}
+                      <input type="hidden" name="action" value="adjust_ingredient">
+                      <input type="hidden" name="item_id" value="{{ item.id }}">
+                      <input type="hidden" name="ingredient_id" value="{{ ing.obj.id }}">
+                      <input type="hidden" name="direction" value="plus">
+                      <button class="btn btn-sm btn-outline-success" {% if ing.qty >= 10 %}disabled{% endif %}>+</button>
+                    </form>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+            </div>
+          </div>
 
+        </div>
+      </div>
+      {% endwith %}
+    {% endfor %}
 
--->
+    <div class="d-flex justify-content-between align-items-center mt-3">
+      <h4>Total: {{ order.total_price }}</h4>
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="action" value="confirm">
+        <button class="btn btn-success">Confirm Order</button>
+      </form>
+    </div>
 
-
-
-
-
-
-
-
-
+  {% endif %}
+</div>
 
 {% endblock %}

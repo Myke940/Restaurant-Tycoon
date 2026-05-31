@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+  <h2>Confirmed Orders</h2>
+
+  {% if not orders_data %}
+    <p>No confirmed orders.</p>
+  {% else %}
+    {% for entry in orders_data %}
+      {% with order=entry.order %}
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between">
+          <span>Order #{{ order.id }} - {{ order.user.username }} - {{ order.created_at|date:"d.m.Y H:i" }}</span>
+          <span>Total: {{ order.total_price }}</span>
+        </div>
+        <div class="card-body">
+          {% for item_entry in entry.items_data %}
+            {% with item=item_entry.item %}
+            <div class="mb-3">
+              <strong>{{ item.dish.name }} x{{ item.quantity }}</strong>
+              <ul class="mt-1">
+                {% for ing in item_entry.ingredients %}
+                  {% if ing.qty != 0 %}
+                    <li>
+                        {{ ing.obj.name }}:
+                        {% if ing.qty > 0 %}+{{ ing.qty }}{% else %}{{ ing.qty }}{% endif %}
+                    </li>
+                  {% endif %}
+                {% endfor %}
+              </ul>
+            </div>
+            {% endwith %}
+          {% endfor %}
+          <form method="post">
+            {% csrf_token %}
+            <input type="hidden" name="order_id" value="{{ order.id }}">
+            <button class="btn btn-primary btn-sm">Mark as Done</button>
+          </form>
+        </div>
+      </div>
+      {% endwith %}
+    {% endfor %}
+  {% endif %}
+</div>
+
+{% endblock %}
